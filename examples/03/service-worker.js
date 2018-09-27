@@ -23,7 +23,7 @@ async function cleanupCaches() {
   const cacheNames = await caches.keys();
   await Promise.all(
     cacheNames
-      .filter(c => c !== cacheName)
+      .filter(c => c.startsWith(prefix) && c !== cacheName)
       .map(c => caches.delete(c))
   );
 }

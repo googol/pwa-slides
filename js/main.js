@@ -12,10 +12,10 @@ const ul = (list) => h('ul', list.map(li => h('li', li)))
 const PwaMisconceptionsSlide = () => h(ContentSlide, {
   title: 'Common misconceptions about PWAS',
   main: () => h(Frame, [ul([
-    'PWA needs to be an SPA',
-    'PWA only make sense for "apps"',
-    'Nobody would want to install this',
-    'Offline is useless for a site like this',
+    'A PWA needs to be an SPA',
+    'A PWA only make sense for "apps"',
+    'Nobody would want to install site x',
+    'Offline is useless for site x',
   ])]),
   aside: () => h('img', { src: './Dwight-Schrute.jpg', style: { width: '100%', height: '100%', objectFit: 'cover', margin: 0, padding: 0 } }),
 });
@@ -56,6 +56,18 @@ const TransactionalSitesSlide = () => h(ContentSlide, {
 const CodeBlock = ({ children }) => h('pre', [
   h('code', { ref: (element) => { if (element) { hljs.highlightBlock(element) } } }, children),
 ]);
+
+const ServiceWorker = () => h(LargeContentSlide, {
+  title: 'Service worker',
+  main: () => h(Frame, [
+    h('p', 'A lot like shared workers, except:'),
+    ul([
+      'Can (and will) be killed by the browser',
+      'Has a special lifecycle',
+      'Has special superpowers',
+    ]),
+  ]),
+});
 
 const AddingServiceWorker1 = () => h(LargeContentSlide, {
   title: 'Installing a simple service worker',
@@ -159,7 +171,7 @@ async function cleanupCaches() {
   const cacheNames = await caches.keys();
   await Promise.all(
     cacheNames
-      .filter(c => c !== cacheName)
+      .filter(c => c.startsWith('example-03') && c !== cacheName)
       .map(c => caches.delete(c))
   );
 }`),
@@ -240,15 +252,16 @@ class App extends React.Component {
 
     return h(Presentation, { pathPrefix: '/pwa-slides', slides: [
       { path: '/', slide: h(TitleSlide) },
-      { path: '/linkable-responsive-safe', slide: videoSlide('Properties of PWAs', () => ul(['Linkable', 'Responsive', 'Safe'])) },
-      { path: '/app-like-interactions', slide: videoSlide('Properties of PWAs', () => ul(['App-like interactions'])) },
-      { path: '/connectivity-independent', slide: videoSlide('Properties of PWAs', () => ul(['Connectivity independent'])) },
-      { path: '/installable-discoverable-fresh', slide: videoSlide('Properties of PWAs', () => ul(['Installable', 'Discoverable', 'Fresh'])) },
-      { path: '/re-engageable', slide: videoSlide('Properties of PWAs', () => ul(['Re-engageable'])) },
+      { path: '/linkable-responsive-safe', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Linkable', 'Responsive', 'Safe'])])) },
+      { path: '/app-like-interactions', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['App-like interactions'])])) },
+      { path: '/connectivity-independent', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Connectivity independent'])])) },
+      { path: '/installable-discoverable-fresh', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Installable', 'Discoverable', 'Fresh'])])) },
+      { path: '/re-engageable', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Re-engageable'])])) },
       { path: '/misconceptions', slide: h(PwaMisconceptionsSlide) },
       { path: '/information-pages', slide: h(InformationPagesSlide) },
       { path: '/publishing-sites', slide: h(PublishingSitesSlide) },
       { path: '/transactional-sites', slide: h(TransactionalSitesSlide) },
+      { path: '/serviceworker', slide: h(ServiceWorker) },
       { path: '/adding-serviceworker', slide: h(AddingServiceWorker1) },
       { path: '/adding-serviceworker/2', slide: h(AddingServiceWorker2) },
       { path: '/serviceworker-scope', slide: h(ServiceWorkerScope) },

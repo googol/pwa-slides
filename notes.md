@@ -5,6 +5,7 @@
   - Husband & wife team doing cool web stuff
   - Talked about ideal web app properties over lunch sometime in 2015
   - Named their ideal kind of web app "Progressive web app"
+- I've grouped those properties and I'll present them next
 
 ## Properties of PWAs
 ### Linkable, responsive, safe
@@ -17,8 +18,8 @@
 - Most of all means designing good flow through the site
 
 ### Connectivity independant
-- Site is protected from the offline dinosaur, and spotty connection/lie-fi
 - Most important is that the the user gets some value regardless of the connection
+- Site is protected from the offline dinosaur, and spotty connection/lie-fi
 - Also important for bandwidth usage!
 
 ### Installable, discoverable, fresh
@@ -66,20 +67,32 @@
 - Push notifications are great for informing about new promotions
 - Installing makes perfect sense for repeat users! This is already a very appy thing.
 
-## SW fetch with hardcoded offline page
-- Just to show how to install a basic sw
-- for html requests: passthrough fetch, in catch return a hardcoded offline page
+# Service workers
+- A lot like shared workers
+  - Runs in separate context / thread -> separate globals
+  - Can communicate with all open pages of same origin
+  - Has no access to dom or sync apis, can access IDB etc
+  - In classic mode, can import other scripts via `importScripts`
+- except:
+  - Can (and will) be killed by the browser
+  - Has a special lifecycle: more on that later
+  - Has special superpowers: catch fetches, react to push notifications, handle timers
 
-## Cache API primer
-- Network first caching
+## SW fetch with hardcoded offline page
+- for html requests: passthrough fetch, in catch return a hardcoded offline page
+- how to install a basic sw
+
+## SW Scope
 
 ## SW install
 - install base assets to cache
+- cache-then-network handler
 
 ## SW activate
 - cleanup old cache
 
 ## SW lifecycle
+- first install: stops at active (wont take over)
 - update check on:
   - navigation into scope
   - wake up via push/sync event
@@ -118,12 +131,14 @@
 - nice:
   - theme_color: browser tab header, app selector
 
+- installation gotchas: IOS
+- separate serviceworkers & storages for browser, webview & installed-to-homescreen standalone pwa
+  - except cache!
+- external links from installed-to-homescreen open in browser -> different storage & session
+
+##
+
 ## Theming extras
 - https://developers.google.com/web/fundamentals/design-and-ux/browser-customization/
 - https://gist.github.com/tfausak/2222823
   - Be careful with `web app capable`
-
-## installation gotchas: IOS
-- separate serviceworkers & storages for browser, webview & installed-to-homescreen standalone pwa
-  - except cache!
-- external links from installed-to-homescreen open in browser -> different storage & session

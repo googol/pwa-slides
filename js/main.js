@@ -17,7 +17,7 @@ const PwaMisconceptionsSlide = () => h(ContentSlide, {
     'Nobody would want to install this',
     'Offline is useless for a site like this',
   ])]),
-  aside: () => h('img', { src: '/Dwight-Schrute.jpg', style: { width: '100%', height: '100%', objectFit: 'cover', margin: 0, padding: 0 } }),
+  aside: () => h('img', { src: './Dwight-Schrute.jpg', style: { width: '100%', height: '100%', objectFit: 'cover', margin: 0, padding: 0 } }),
 });
 
 const InformationPagesSlide = () => h(ContentSlide, {
@@ -238,7 +238,7 @@ class App extends React.Component {
 
     const videoSlide = (title, main) => h(VideoSlide, { videoStream, title, main })
 
-    return h(Presentation, { slides: [
+    return h(Presentation, { pathPrefix: '/pwa-slides', slides: [
       { path: '/', slide: h(TitleSlide) },
       { path: '/linkable-responsive-safe', slide: videoSlide('Properties of PWAs', () => ul(['Linkable', 'Responsive', 'Safe'])) },
       { path: '/app-like-interactions', slide: videoSlide('Properties of PWAs', () => ul(['App-like interactions'])) },

@@ -17,11 +17,11 @@ export class Presentation extends React.Component {
 
   componentDidMount() {
     this.setState({
-      currentSlide: this.props.slides.find(s => s.path === document.location.pathname),
+      currentSlide: this.props.slides.find(s => s.path === document.location.pathname || this.props.pathPrefix + s.path === document.location.pathname),
     });
     window.addEventListener('popstate', (event) => {
       this.setState({
-        currentSlide: this.props.slides.find(s => s.path === document.location.pathname),
+        currentSlide: this.props.slides.find(s => s.path === document.location.pathname || this.props.pathPrefix + s.path === document.location.pathname),
       });
     });
   }

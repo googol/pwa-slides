@@ -252,7 +252,7 @@ class App extends React.Component {
 
     return h(Presentation, { pathPrefix: '/pwa-slides', slides: [
       { path: '/', slide: h(TitleSlide) },
-      { path: '/linkable-responsive-safe', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Linkable', 'Responsive', 'Safe'])])) },
+      { path: '/linkable-responsive-safe', slide: h(LargeContentSlide, { title: 'Properties of PWAs', main: () => h(Frame, [ul(['Linkable', 'Responsive', 'Safe']), h('p', 'You guys know this stuff')])}) },
       { path: '/app-like-interactions', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['App-like interactions'])])) },
       { path: '/connectivity-independent', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Connectivity independent'])])) },
       { path: '/installable-discoverable-fresh', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Installable', 'Discoverable', 'Fresh'])])) },

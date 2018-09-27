@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PWA intro</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <main id="app">
+      <h1>You seem to be offline</h2>
+    </main>
+    <script>
+      window.addEventListener('load', async () => {
+        if ('serviceWorker' in navigator) {
+          await navigator.serviceWorker.register('./service-worker.js');
+        }
+      });
+    </script>
+  </body>
+</html>

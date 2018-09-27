@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PWA intro</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <main id="app">
+      <h1>Online!</h2>
+      <img src="pwa.svg" style="width: 30%;" />
+    </main>
+    <script>
+      window.addEventListener('load', async () => {
+        if ('serviceWorker' in navigator) {
+          await navigator.serviceWorker.register('./service-worker.js');
+        }
+      });
+    </script>
+  </body>
+</html>

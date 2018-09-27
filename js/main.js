@@ -248,15 +248,16 @@ class App extends React.Component {
   render() {
     const { videoStream } = this.state;
 
-    const videoSlide = (title, main) => h(VideoSlide, { videoStream, title, main })
+    const videoSlide = (title, main) => h(VideoSlide, { videoStream, title, main });
+    const iframe = (src) => h('iframe', { src, style: { width: '100%', height: '100%' } });
 
     return h(Presentation, { pathPrefix: '/pwa-slides', slides: [
       { path: '/', slide: h(TitleSlide) },
       { path: '/linkable-responsive-safe', slide: h(LargeContentSlide, { title: 'Properties of PWAs', main: () => h(Frame, [ul(['Linkable', 'Responsive', 'Safe']), h('p', 'You guys know this stuff')])}) },
-      { path: '/app-like-interactions', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['App-like interactions'])])) },
-      { path: '/connectivity-independent', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Connectivity independent'])])) },
-      { path: '/installable-discoverable-fresh', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Installable', 'Discoverable', 'Fresh'])])) },
-      { path: '/re-engageable', slide: videoSlide('Properties of PWAs', () => h(Frame, [ul(['Re-engageable'])])) },
+      { path: '/app-like-interactions', slide: h(ContentSlide, { title: 'Properties of PWAs', main: () => h(Frame, [ul(['App-like interactions'])]), aside: () => iframe('https://pokedex.org')}) },
+      { path: '/connectivity-independent', slide: h(LargeContentSlide, { title: 'Properties of PWAs', main: () => h(Frame, [ul(['Connectivity independent'])])}) },
+      { path: '/installable-discoverable-fresh', slide: h(LargeContentSlide, { title: 'Properties of PWAs', main: () => h(Frame, [ul(['Installable', 'Discoverable', 'Fresh'])])}) },
+      { path: '/re-engageable', slide: h(ContentSlide, { title: 'Properties of PWAs', main: () => h(Frame, [ul(['Re-engageable'])]), aside: () => iframe('https://cloudfour.com/thinks/progressive-web-apps-simply-make-sense/')}) },
       { path: '/misconceptions', slide: h(PwaMisconceptionsSlide) },
       { path: '/information-pages', slide: h(InformationPagesSlide) },
       { path: '/publishing-sites', slide: h(PublishingSitesSlide) },
